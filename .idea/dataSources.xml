@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="identifier.sqlite" uuid="2b7992e6-0504-41f9-8dc0-8b191941d544">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:identifier.sqlite</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="person@localhost" uuid="a0aea5ce-31a8-4ddf-90c1-1e248dcdedd9">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
@@ -15,11 +8,11 @@
       <jdbc-url>jdbc:mysql://localhost:3306/person</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="dataport_sqlite" uuid="31534fcf-76d9-468e-a277-e671b3987027">
+    <data-source source="LOCAL" name="dataport_sqlite" uuid="4357b18e-783b-4fb2-9798-c15febf2d038">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:E:\PythonProject\基于K-means聚类的用户用电行为分析\dataport_sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:E:\PythonProject\基于聚类算法的用户用电行为分析\dataport_sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
