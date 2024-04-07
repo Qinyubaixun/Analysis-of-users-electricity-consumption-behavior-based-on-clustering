@@ -91,7 +91,7 @@ loads_wide_df = pd.pivot_table(data=loads_df,columns=['date','day_of_month'],val
 
 unique_days = loads_df.day_of_month.unique()
 
-# loads_wide_df = pd.concat([loads_wide_df.xs(10,level='day_of_month',axis=1) for day in unique_days])
+loads_wide_df = pd.concat([loads_wide_df.xs(10,level='day_of_month',axis=1) for day in unique_days])
 loads_wide_df = loads_wide_df.dropna()
 loads_wide_df = np.array(loads_wide_df)
 print(loads_wide_df.shape)
