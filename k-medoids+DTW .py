@@ -91,7 +91,8 @@ loads_wide_df = pd.pivot_table(data=loads_df,columns=['date','day_of_month'],val
 
 unique_days = loads_df.day_of_month.unique()
 
-loads_wide_df = pd.concat([loads_wide_df.xs(10,level='day_of_month',axis=1) for day in unique_days])
+# loads_wide_df = pd.concat([loads_wide_df.xs(10,level='day_of_month',axis=1) for day in unique_days])
+loads_wide_df = loads_wide_df.xs(2,level='day_of_month',axis=1)
 loads_wide_df = loads_wide_df.dropna()
 loads_wide_df = np.array(loads_wide_df)
 print(loads_wide_df.shape)
@@ -113,7 +114,7 @@ def test_elbow():
 
 
 def test_kmedoids():
-    num_cluster = 8
+    num_cluster = 6
     # 声明precomputed自定义相似度计算方法
     km = KMedoids(n_clusters=num_cluster, random_state=0, metric="precomputed")
     # 采用tslearn中的DTW系列及变种算法计算相似度，生成距离矩阵dists
@@ -129,7 +130,7 @@ def test_kmedoids():
     # loads_wide_df.insert(loc=len(loads_wide_df), column='pred', value=y_pred)
     print(loads_wide_df)
     for yi in range(num_cluster):
-        plt.subplot(4, 2, yi + 1)
+        plt.subplot(3, 2, yi + 1)
         for xx in loads_wide_df[y_pred == yi]:
             plt.plot(xx.ravel(), "k-", alpha=.3)
         # 注意这里的_cluster_centers要写成X[km.medoid_indices_[yi]]，因为你是precomputed，源码里面当precomputed时_cluster_centers等于None
