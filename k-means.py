@@ -101,7 +101,7 @@ class EnergyFingerPrints():
 
     def plot(self):  # 分别绘制各簇中的用户用电行为曲线，并绘制各簇的平均用电行为曲线
         self.cluster_names = [str(x) for x in range(self.n_clusters)]
-        fig, ax = plt.subplots(2, 2, figsize=(12, 8))
+        fig, ax = plt.subplots(2, 2, figsize=(12, 10))
         for i in range(0, self.n_clusters):
             # all_data = []
             plt.subplot(2, 2, i + 1)
