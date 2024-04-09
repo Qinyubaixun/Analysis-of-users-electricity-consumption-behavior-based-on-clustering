@@ -92,7 +92,7 @@ loads_wide_df = pd.pivot_table(data=loads_df,columns=['date','day_of_month'],val
 unique_days = loads_df.day_of_month.unique()
 
 # loads_wide_df = pd.concat([loads_wide_df.xs(10,level='day_of_month',axis=1) for day in unique_days])
-loads_wide_df = loads_wide_df.xs(2,level='day_of_month',axis=1)
+loads_wide_df = loads_wide_df.xs(16,level='day_of_month',axis=1)
 loads_wide_df = loads_wide_df.dropna()
 loads_wide_df = np.array(loads_wide_df)
 print(loads_wide_df.shape)
@@ -102,19 +102,19 @@ def test_elbow():
     distortions = []
     dists = metrics.cdist_dtw(loads_wide_df)  # dba + dtw
     # dists = metrics.cdist_soft_dtw_normalized(X,gamma=.5) # softdtw
-    for i in range(2, 15):
+    for i in range(2, 20):
         km = KMedoids(n_clusters=i, random_state=0, metric="precomputed")
         km.fit(dists)
         # 记录误差和
         distortions.append(km.inertia_)
-    plt.plot(range(2, 15), distortions, marker='o')
+    plt.plot(range(2, 20), distortions, marker='o')
     plt.xlabel('Number of clusters')
     plt.ylabel('Distortion')
     plt.show()
 
 
 def test_kmedoids():
-    num_cluster = 6
+    num_cluster = 9
     # 声明precomputed自定义相似度计算方法
     km = KMedoids(n_clusters=num_cluster, random_state=0, metric="precomputed")
     # 采用tslearn中的DTW系列及变种算法计算相似度，生成距离矩阵dists
@@ -130,20 +130,27 @@ def test_kmedoids():
     # loads_wide_df.insert(loc=len(loads_wide_df), column='pred', value=y_pred)
     print(loads_wide_df)
     for yi in range(num_cluster):
-        plt.subplot(3, 2, yi + 1)
+        plt.subplot(3, 3, yi + 1)
         for xx in loads_wide_df[y_pred == yi]:
-            plt.plot(xx.ravel(), "k-", alpha=.3)
+            plt.plot(xx.ravel()[0:95], "k-", alpha=.3)
         # 注意这里的_cluster_centers要写成X[km.medoid_indices_[yi]]，因为你是precomputed，源码里面当precomputed时_cluster_centers等于None
         print(loads_wide_df[km.medoid_indices_[yi]])
-        plt.plot(loads_wide_df[km.medoid_indices_[yi]], "r-")
+        plt.plot(loads_wide_df[km.medoid_indices_[yi]][0:95], "r-")
         plt.text(0.55, 0.85, 'Cluster %d' % (yi + 1),
                  transform=plt.gca().transAxes)
+        plt.ylabel('用电量/kW')
+        plt.xlabel('采样点')
         if yi == 1:
             plt.title("KMedoids" + " + DBA-DTW")
 
     plt.tight_layout()
     plt.show()
+    for i in range(num_cluster):
+        plt.plot(loads_wide_df[km.medoid_indices_[i]].T[0:95], label="cluster %s" % (str(i + 1)))
+    plt.ylabel('用电量/kW')
+    plt.legend()
+    plt.xlabel('采样点')
+    plt.show()
 
-
-# test_elbow()
+test_elbow()
 test_kmedoids()

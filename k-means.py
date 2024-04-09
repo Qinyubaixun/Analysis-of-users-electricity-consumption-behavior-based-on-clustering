@@ -113,7 +113,7 @@ class EnergyFingerPrints():
                     plt.xlim(0, 96)
                     plt.title('Cluster {}'.format(i + 1))
                     plt.ylabel('用电量/kW')
-
+                    plt.xlabel('采样点')
             # all_data_array = np.array(all_data)
             # mean = all_data_array.mean(axis=0)
             # self.means.append(mean)
@@ -134,7 +134,7 @@ class EnergyFingerPrints():
 
 load_data=np.array(loads_wide_df)
 energy_clusters = EnergyFingerPrints(load_data)
-energy_clusters.elbow_method(n_clusters=13)
+energy_clusters.elbow_method(n_clusters=16)
 energy_clusters.fit(n_clusters=4)
 energy_clusters.plot()
 energy_clusters.get_cluster_counts()
